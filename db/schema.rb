@@ -10,8 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_02_122300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "calculators", force: :cascade do |t|
+    t.string "name"
+    t.string "formula"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.float "price"
+    t.bigint "field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_id"], name: "index_categories_on_field_id"
+  end
+
+  create_table "fields", force: :cascade do |t|
+    t.string "label"
+    t.string "var_name"
+    t.string "field_type"
+    t.bigint "calculator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calculator_id"], name: "index_fields_on_calculator_id"
+  end
 end
