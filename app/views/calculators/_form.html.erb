@@ -1,0 +1,23 @@
+<%= simple_form_for(@calculator) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name, label: "Calculator Name:" %>
+    <%= f.input :formula, label: "Formula Expression:" %>
+    
+    <h3>Fields</h3>
+    <div id="fields">
+      <%= f.simple_fields_for :fields do |field_fields| %>
+        <%= render "field_fields", f: field_fields %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association "Add Field", f, :fields %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
