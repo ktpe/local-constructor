@@ -2,22 +2,22 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :name, label: "Calculator Name:" %>
-    <%= f.input :formula, label: "Formula Expression:" %>
+  <div class="form-inputs space-y-4">
+    <%= f.input :name, label: "Calculator Name:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
+    <%= f.input :formula, label: "Formula Expression:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
     
-    <h3>Fields</h3>
-    <div id="fields">
+    <h3 class="text-lg font-semibold mt-4">Fields</h3>
+    <div id="fields" class="space-y-4">
       <%= f.simple_fields_for :fields do |field_fields| %>
         <%= render "field_fields", f: field_fields %>
       <% end %>
       <div class="links">
-        <%= link_to_add_association "Add Field", f, :fields %>
+        <%= link_to_add_association "Add Field", f, :fields, class: "text-blue-500 hover:text-blue-700 underline" %>
       </div>
     </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions mt-6">
+    <%= f.button :submit, class: "bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-700" %>
   </div>
 <% end %>
