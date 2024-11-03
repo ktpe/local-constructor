@@ -38,7 +38,7 @@ class CalculatorsController < ApplicationController
     inputs = params[:inputs] || {}
     formula = @calculator.formula
     inputs.each do |var_name, value|
-      formula = formula.gsub(var_name, value.to_s)
+      formula = formula.gsub(var_name, value.to_f.to_s)
     end
     result = eval(formula)
     redirect_to calculator_path(@calculator, result: result)
