@@ -3,8 +3,7 @@
 
   <%= form_with url: calculate_calculator_path(@calculator), method: :post, local: true do |form| %>
     <% @calculator.fields.each do |field| %>
-      <div class="field">
-
+      <div>
         <%= form.label field.var_name, field.label %><br>
         <%if field.field_type=='number' %>
           <%= form.number_field "inputs[#{field.var_name}]", placeholder: field.label %>
@@ -12,9 +11,7 @@
           <%= form.select "inputs[#{field.var_name}]", options_from_collection_for_select(field.categories, :id, :name) %>
         <%end%>
       </div>
-
     <% end %>
-  
     <div class="form-actions mt-6">
       <%= form.submit "Calculate" %>
     </div>
