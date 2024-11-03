@@ -8,13 +8,17 @@
         <%if field.field_type=='number' %>
           <%= form.number_field "inputs[#{field.var_name}]", placeholder: field.label %>
         <%else%>
-          <%= form.select "inputs[#{field.var_name}]", options_from_collection_for_select(field.categories, :id, :name) %>
+          <%= form.select "inputs[#{field.var_name}]", options_from_collection_for_select(field.categories, :price, :name) %>
         <%end%>
       </div>
     <% end %>
     <div class="form-actions mt-6">
       <%= form.submit "Calculate" %>
     </div>
+  <% end %>
+
+  <% if @result.present? %>
+    <p>Result: <%= @result %></p>
   <% end %>
   
 </div>

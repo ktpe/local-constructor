@@ -11,6 +11,7 @@ class CalculatorsController < ApplicationController
 
   def show
     @calculator = set_calculator
+    @result = params[:result]
   end
 
   def create
@@ -35,6 +36,12 @@ class CalculatorsController < ApplicationController
   def calculate
     @calculator = set_calculator
     inputs = params[:inputs] || {}
+    formula = @calculator.formula
+    inputs.each do |var_name, value|
+      formula = formula.gsub(var_name, value.to_s)
+    end
+    result = eval(formula)
+    redirect_to calculator_path(@calculator, result: result)
   end
 
   private
