@@ -36,7 +36,7 @@ class CalculatorsController < ApplicationController
   def calculate
     @calculator = set_calculator
 
-    inputs = JSON.parse(params[:inputs].transform_keys { |key| key.delete_prefix("%") }.to_json, symbolize_names: true)
+    inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
     formula = @calculator.formula.gsub(/%(\w+)/, '%{\1}')
     formatted_formula = formula % inputs
 
