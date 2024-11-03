@@ -35,12 +35,11 @@ class CalculatorsController < ApplicationController
 
   def calculate
     @calculator = set_calculator
-    inputs = params[:inputs] || {}
-    formula = @calculator.formula
-    inputs.each do |var_name, value|
-      formula = formula.gsub(var_name, value.to_f.to_s)
-    end
-    result = eval(formula)
+    inputs = params.require(:inputs).permit!.to_h
+    formula = @calculator.formula 
+    formatted_formula = formula % inputs
+    
+    result = eval(formatted_formula)
     redirect_to calculator_path(@calculator, result: result)
   end
 
