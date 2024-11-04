@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_04_104453) do
 
   create_table "calculators", force: :cascade do |t|
     t.string "name"
-    t.string "formula"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
