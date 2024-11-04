@@ -1,18 +1,22 @@
 class CalculatorsController < ApplicationController
+  before_action :set_calculator, only: [:show, :calculate]
+
   def index
   end
 
   def new
     @calculator = Calculator.new
-    @calculator.fields.build.categories.build  
+    @calculator.fields.build.categories.build
   end
 
   def show
+    @calculator = set_calculator
+    @result = params[:result]
   end
 
   def create
     @calculator = Calculator.new(calculator_params)
-  
+
     if @calculator.save
       redirect_to @calculator, notice: "Calculator created successfully."
     else
@@ -29,10 +33,22 @@ class CalculatorsController < ApplicationController
   def destroy
   end
 
+  def calculate
+    @calculator = set_calculator
+
+    inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
+    formula = @calculator.formula.gsub(/%(\w+)/, '%{\1}')
+    formatted_formula = formula % inputs
+
+    result = eval(formatted_formula)
+
+    redirect_to calculator_path(@calculator, result: result)
+  end
+
   private
 
   def set_calculator
-    @calculator = Calculator.find(params[:id])
+   Calculator.find(params[:id])
   end
 
   def calculator_params
