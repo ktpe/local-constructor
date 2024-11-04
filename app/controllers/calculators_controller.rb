@@ -4,7 +4,7 @@ class CalculatorsController < ApplicationController
 
   def new
     @calculator = Calculator.new
-    @calculator.fields.build.categories.build  
+    @calculator.fields.build.categories.build
   end
 
   def show

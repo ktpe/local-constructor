@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_04_104453) do
 
   create_table "formulas", force: :cascade do |t|
     t.string "expression"
+    t.string "label"
     t.bigint "calculator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
