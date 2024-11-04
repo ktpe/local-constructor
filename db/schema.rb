@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_02_122300) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_04_104453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,5 +38,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_02_122300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["calculator_id"], name: "index_fields_on_calculator_id"
+  end
+
+  create_table "formulas", force: :cascade do |t|
+    t.string "expression"
+    t.bigint "calculator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calculator_id"], name: "index_formulas_on_calculator_id"
   end
 end
