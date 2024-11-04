@@ -8,7 +8,6 @@ default: &default
   username: <%= ENV.fetch("APP_NAME_DATABASE_USERNAME") { "app_name" } %>
   password: <%= ENV["APP_NAME_DATABASE_PASSWORD"] %>
   port: <%= ENV.fetch("APP_NAME_DATABASE_PORT") { "5432" } %>
-
 development:
   <<: *default
   database: app_name_development
