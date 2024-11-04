@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :calculators
+  resources :calculators do
+    member do
+      post :calculate
+    end
+  end
   
   root to: "calculators#new"
   get "home/index"

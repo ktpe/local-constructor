@@ -1,4 +1,24 @@
 <div>
-  <h1 class="font-bold text-4xl">Calculators#show</h1>
-  <p>Find me in app/views/calculators/show.html.erb</p>
+  <h1 class="font-bold text-4xl">Calculator <%= @calculator.name %></h1>
+
+  <%= form_with url: calculate_calculator_path(@calculator), method: :post, local: true do |form| %>
+    <% @calculator.fields.each do |field| %>
+      <div class="form-inputs space-y-4">
+        <%= form.label field.var_name, field.label %><br>
+        <%if field.field_type=='number' %>
+          <%= form.number_field "inputs[#{field.var_name}]", placeholder: field.label %>
+        <%else%>
+          <%= form.select "inputs[#{field.var_name}]", options_from_collection_for_select(field.categories, :price, :name) %>
+        <%end%>
+      </div>
+    <% end %>
+    <div class="form-actions mt-6">
+      <%= form.submit "Calculate", class: "bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-700" %>
+    </div>
+  <% end %>
+
+  <% if @result.present? %>
+    <p>Result: <%= @result %></p>
+  <% end %>
+  
 </div>
