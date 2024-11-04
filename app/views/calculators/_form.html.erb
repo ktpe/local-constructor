@@ -6,6 +6,17 @@
     <%= f.input :name, label: "Calculator Name:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
     <%= f.input :formula, label: "Formula Expression:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
     
+    <!-- formula input-->
+    <h3 class="text-lg font-semibold mt-4">Formula</h3>
+    <div id="formulas" class="space-y-4">
+      <%= f.simple_fields_for :formulas do |formula_fields| %>
+        <%= render "formula_fields", f: formula_fields %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association "Add Formula", f, :formulas, class: "text-blue-500 hover:text-blue-700 underline" %>
+      </div>
+    </div>
+
     <h3 class="text-lg font-semibold mt-4">Fields</h3>
     <div id="fields" class="space-y-4">
       <%= f.simple_fields_for :fields do |field_fields| %>
