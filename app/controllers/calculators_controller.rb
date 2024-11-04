@@ -1,6 +1,4 @@
 class CalculatorsController < ApplicationController
-  before_action :set_calculator, only: [:show, :calculate]
-
   def index
   end
 
@@ -12,7 +10,7 @@ class CalculatorsController < ApplicationController
   end
 
   def show
-    @calculator = set_calculator
+    @calculator = resource
     @result = params[:result]
   end
 
@@ -36,21 +34,27 @@ class CalculatorsController < ApplicationController
   end
 
   def calculate
-    @calculator = set_calculator
+    keisan = Keisan::Calculator.new
 
-    inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
-    formula = @calculator.formula.gsub(/%(\w+)/, '%{\1}')
-    formatted_formula = formula % inputs
+    @calculator = resource
 
-    result = eval(formatted_formula)
+    inputs = params[:inputs].transform_values(&:to_f)
 
-    redirect_to calculator_path(@calculator, result: result)
+    @results = @calculator.formulas.map do |formula|
+      result = keisan.evaluate(formula.expression, inputs)
+
+      { label: formula.label, result: result }
+    end
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
 
-  def set_calculator
-   Calculator.find(params[:id])
+  def resource
+    Calculator.find(params[:id])
   end
 
   def calculator_params

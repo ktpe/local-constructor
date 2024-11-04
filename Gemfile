@@ -86,6 +86,7 @@ gem "kaminari"
 gem "meta-tags"
 gem "rails-i18n", "~> 7.0.0"
 gem "inline_svg", "~> 1.8"
+gem "keisan", "~> 0.9.1"
 # gem "awesome_print", groups: [:development, :test]
 # gem "babosa"
 # gem "mimemagic"
