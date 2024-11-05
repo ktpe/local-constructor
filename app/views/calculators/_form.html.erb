@@ -1,7 +1,4 @@
 <%= simple_form_for(@calculator) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
   <div class="form-inputs space-y-4">
     <%= f.input :name, label: "Calculator Name:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
     

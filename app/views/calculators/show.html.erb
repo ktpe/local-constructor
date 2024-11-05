@@ -1,15 +1,15 @@
 <div>
   <h1 class="text-4xl font-bold">Calculator <%= @calculator.name %></h1>
 
-  <%= form_with url: calculate_calculator_path(@calculator), method: :post, local: true do |form| %>
+  <%= form_with url: calculate_calculator_path(@calculator) do |form| %>
     <% @calculator.fields.each do |field| %>
       <div class="mt-4 space-y-2 form-inputs">
         <%= form.label field.var_name, field.label %><br>
-        <%if field.field_type=='number' %>
+        <% if field.field_type=="number" %>
           <%= form.number_field "inputs[#{field.var_name}]", placeholder: field.label, step: "0.01" %>
-        <%else%>
+        <% else %>
           <%= form.select "inputs[#{field.var_name}]", options_from_collection_for_select(field.categories, :price, :name) %>
-        <%end%>
+        <% end %>
       </div>
     <% end %>
     <div class="mt-6 form-actions">
