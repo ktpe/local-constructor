@@ -1,7 +1,7 @@
 class CalculationService
   def initialize(calculator, inputs)
     @calculator = calculator
-    @inputs = inputs
+    @inputs = inputs.permit!.to_h
     @dentaku = Dentaku::Calculator.new
   end
 

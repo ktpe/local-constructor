@@ -24,9 +24,8 @@ class CalculatorsController < ApplicationController
 
   def calculate
     @calculator = resource
-    inputs = params[:inputs].permit!.to_h
 
-    @results = CalculationService.new(@calculator, inputs).perform
+    @results = CalculationService.new(@calculator, params[:inputs]).perform
 
     respond_to :turbo_stream
   end
