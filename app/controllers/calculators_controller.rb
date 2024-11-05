@@ -1,5 +1,4 @@
 class CalculatorsController < ApplicationController
- 
   def index
   end
 
@@ -38,10 +37,9 @@ class CalculatorsController < ApplicationController
     @calculator = resource
 
     inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
-    formula = @calculator.formula
-    formatted_formula = formula % inputs
-
-    result = eval(formatted_formula)
+    formula = @calculator.formulas
+    
+    result = eval(formula.first.expression % inputs)
 
     redirect_to calculator_path(@calculator, result: result)
   end
