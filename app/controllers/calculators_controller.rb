@@ -1,6 +1,5 @@
 class CalculatorsController < ApplicationController
-  before_action :set_calculator, only: [:show, :calculate]
-
+ 
   def index
   end
 
@@ -12,7 +11,7 @@ class CalculatorsController < ApplicationController
   end
 
   def show
-    @calculator = set_calculator
+    @calculator = resource
     @result = params[:result]
   end
 
@@ -36,10 +35,10 @@ class CalculatorsController < ApplicationController
   end
 
   def calculate
-    @calculator = set_calculator
+    @calculator = resource
 
     inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
-    formula = @calculator.formula.gsub(/%(\w+)/, '%{\1}')
+    formula = @calculator.formula
     formatted_formula = formula % inputs
 
     result = eval(formatted_formula)
@@ -49,7 +48,7 @@ class CalculatorsController < ApplicationController
 
   private
 
-  def set_calculator
+  def resource
    Calculator.find(params[:id])
   end
 
