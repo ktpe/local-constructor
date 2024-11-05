@@ -1,7 +1,5 @@
 class CalculatorsController < ApplicationController
-  def index
-  end
-
+  
   def new
     @calculator = Calculator.new
 
@@ -22,15 +20,6 @@ class CalculatorsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
   def calculate
