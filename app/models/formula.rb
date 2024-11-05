@@ -15,4 +15,19 @@
 #
 class Formula < ApplicationRecord
   belongs_to :calculator
+  validate :fields_are_included_in_formulas
+
+  private
+
+  def fields_are_included_in_formulas
+    field_names = calculator.fields.map(&:var_name)
+
+    formula_variables = expression.scan(/\b[a-zA-Z_]\w*\b/).uniq
+
+    unused_fields = formula_variables.reject { |var| field_names.include?(var) }
+
+    if unused_fields.any?
+      errors.add(:expression, "requires fields #{unused_fields.join(', ')} to be initialized")
+    end
+  end
 end

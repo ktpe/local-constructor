@@ -18,4 +18,17 @@ class Field < ApplicationRecord
   belongs_to :calculator
   has_many :categories, dependent: :destroy
   accepts_nested_attributes_for :categories, reject_if: :all_blank, allow_destroy: true
+
+  validate :field_is_used_in_any_formula
+
+  private
+
+  def field_is_used_in_any_formula
+    calculator.formulas.each do |formula|
+      unless formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name)
+        errors.add(:var_name, "field isn't used in any formulas")
+        return
+      end
+    end
+  end
 end
