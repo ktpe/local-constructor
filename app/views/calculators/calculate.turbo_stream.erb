@@ -1,16 +1,1 @@
-<%= turbo_stream.update "calc-results" do %>
-  <h2 class="mt-4 text-2xl font-bold underline">Calculation Results</h2>
-  <div class="mt-2 space-y-2">
-    <% @results.each do |result| %>
-      <div class="flex gap-2 text-lg font-medium">
-        <h3>
-          <%= result[:label] %>
-        </h3>
-        =
-        <p>
-          <%= result[:result] %>
-        </p>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<%= turbo_stream.update "calc-results", partial: "calculators/calculation_results", locals: { results: @results }%>

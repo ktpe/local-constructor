@@ -34,21 +34,12 @@ class CalculatorsController < ApplicationController
   end
 
   def calculate
-    keisan = Keisan::Calculator.new
-
     @calculator = resource
+    inputs = params[:inputs].permit!.to_h
 
-    inputs = params[:inputs].transform_values(&:to_f)
+    @results = CalculationService.new(@calculator, inputs).perform
 
-    @results = @calculator.formulas.map do |formula|
-      result = keisan.evaluate(formula.expression, inputs)
-
-      { label: formula.label, result: result }
-    end
-
-    respond_to do |format|
-      format.turbo_stream
-    end
+    respond_to :turbo_stream
   end
 
   private
