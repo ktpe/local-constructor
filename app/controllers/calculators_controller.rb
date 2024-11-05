@@ -38,7 +38,6 @@ class CalculatorsController < ApplicationController
 
     inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
     formula = @calculator.formulas
-    
     result = eval(formula.first.expression % inputs)
 
     redirect_to calculator_path(@calculator, result: result)
