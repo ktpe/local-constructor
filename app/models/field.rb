@@ -19,16 +19,13 @@ class Field < ApplicationRecord
   has_many :categories, dependent: :destroy
   accepts_nested_attributes_for :categories, reject_if: :all_blank, allow_destroy: true
 
-  validate :field_is_used_in_any_formula
+  validate :field_is_part_of_any_formula
 
   private
 
-  def field_is_used_in_any_formula
+  def field_is_part_of_any_formula
     calculator.formulas.each do |formula|
-      unless formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name)
-        errors.add(:var_name, "#{var_name} isn't part of any formula")
-        return
-      end
+      errors.add(:var_name, "#{var_name} isn't part of any formula") unless formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name)
     end
   end
 end
