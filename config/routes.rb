@@ -1,5 +1,5 @@
-Rails.application.routes.draw do
-  root to: "home#index"
+Rails.application.routes.draw do  
+  root to: "calculators#new"
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,4 +13,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :calculators do
+    member do
+      post :calculate
+    end
+  end
 end

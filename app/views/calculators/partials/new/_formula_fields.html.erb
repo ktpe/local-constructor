@@ -1,0 +1,5 @@
+<div class="nested-fields">
+<%= f.input :label, label: "Field Label:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
+  <%= f.input :expression, label: "Formula Expression", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
+  <%= link_to_remove_association "Remove Formula", f, class: "text-red-500 hover:text-red-700 underline" %>
+</div>

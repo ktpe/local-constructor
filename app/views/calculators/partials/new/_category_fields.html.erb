@@ -1,0 +1,5 @@
+<div class="nested-fields border p-4 rounded-lg mb-4">
+  <%= f.input :name, label: "Category Name:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
+  <%= f.input :price, label: "Category Price:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
+  <%= link_to_remove_association "Remove Category", f, class: "text-red-500 hover:text-red-700 underline mt-2 inline-block" %>
+</div>

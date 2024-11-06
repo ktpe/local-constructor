@@ -1,0 +1,34 @@
+<%= simple_form_for(@calculator) do |f| %>
+  <div class="form-inputs space-y-4">
+    <%= f.input :name, label: "Calculator Name:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
+    
+    <!-- formula input-->
+    <h3 class="text-lg font-semibold mt-4">Formula</h3>
+    <div id="formulas" class="space-y-4">
+      <%= f.simple_fields_for :formulas do |formula_fields| %>
+        <%= render "calculators/partials/new/formula_fields", f: formula_fields %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association "Add Formula", f, :formulas, 
+         partial: "calculators/partials/new/formula_fields",
+        class: "text-blue-500 hover:text-blue-700 underline" %>
+      </div>
+    </div>
+
+    <h3 class="text-lg font-semibold mt-4">Fields</h3>
+    <div id="fields" class="space-y-4">
+      <%= f.simple_fields_for :fields do |field_fields| %>
+        <%= render "calculators/partials/new/field_fields", f: field_fields %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association "Add Field", f, :fields, 
+        partial: "calculators/partials/new/field_fields",
+        class: "text-blue-500 hover:text-blue-700 underline" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions mt-6">
+    <%= f.button :submit, class: "bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-700" %>
+  </div>
+<% end %>
