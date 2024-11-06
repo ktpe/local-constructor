@@ -24,7 +24,7 @@ class Formula < ApplicationRecord
     formula_variables = expression.scan(/\b[a-zA-Z_]\w*\b/).uniq
     unused_fields = formula_variables.reject { |var| field_names.include?(var) }
 
-    return unless unused_fields.any?
+    return if unused_fields.blank?
 
     errors.add(:expression, "requires fields #{unused_fields.join(', ')} to be initialized")
   end
