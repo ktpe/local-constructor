@@ -24,8 +24,8 @@ class Field < ApplicationRecord
   private
 
   def field_is_part_of_any_formula
-    calculator.formulas.each do |formula|
-      errors.add(:var_name, "#{var_name} isn't part of any formula") unless formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name)
-    end
+    return if calculator.formulas.any? { |formula| formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name) }
+
+    errors.add(:var_name, "field isn't used in any formula")
   end
 end
