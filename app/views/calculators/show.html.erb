@@ -1,23 +1,21 @@
 <div>
-  <h1 class="font-bold text-4xl">Calculator <%= @calculator.name %></h1>
+  <h1 class="text-4xl font-bold">Calculator <%= @calculator.name %></h1>
 
   <%= form_with url: calculate_calculator_path(@calculator) do |form| %>
     <% @calculator.fields.each do |field| %>
-      <div class="form-inputs space-y-4">
+      <div class="mt-4 space-y-2 form-inputs">
         <%= form.label field.var_name, field.label %><br>
-        <% if field.field_type == 'number' %>
-          <%= form.number_field "inputs[#{field.var_name}]", placeholder: field.label %>
+        <% if field.field_type=="number" %>
+          <%= form.number_field "inputs[#{field.var_name}]", placeholder: field.label, step: "0.01" %>
         <% else %>
           <%= form.select "inputs[#{field.var_name}]", options_from_collection_for_select(field.categories, :price, :name) %>
         <% end %>
       </div>
     <% end %>
-    <div class="form-actions mt-6">
+    <div class="mt-6 form-actions">
       <%= form.submit "Calculate", class: "bg-blue-500 text-white font-semibold px-4 py-2 rounded hover:bg-blue-700" %>
     </div>
   <% end %>
 
-  <% if @result.present? %>
-    <p>Result: <%= @result %></p>
-  <% end %>
-  </div>
+  <%= turbo_frame_tag "calc-results" %>
+</div>

@@ -1,14 +1,14 @@
-<div class="nested-fields border p-4 rounded-lg mb-4" data-controller="field-type">
+<div class="p-4 mb-4 border rounded-lg nested-fields" data-controller="field-type">
   <%= f.input :label, label: "Field Label:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
   <%= f.input :var_name, label: "Variable Name:", input_html: { class: "border rounded p-2 w-full" }, label_html: { class: "font-semibold" } %>
-  <%= f.input :field_type, 
+  <%= f.input :field_type,
       collection: [["Number", "number"], ["Category", "category"]],
       prompt: "Select Field Type",
       label: "Field Type:",
       input_html: { class: "field-type-select border rounded p-2 w-full", data: { field_type_target: "fieldTypeSelect" } },
       label_html: { class: "font-semibold" } %>
 
-  <div class="category-fields mt-4 hidden" data-field-type-target="categoryFields">
+  <div class="hidden mt-4 category-fields" data-field-type-target="categoryFields">
     <%= f.simple_fields_for :categories do |category_fields| %>
       <%= render "calculators/category_fields", f: category_fields %>
     <% end %>

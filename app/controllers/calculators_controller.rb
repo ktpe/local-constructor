@@ -24,17 +24,15 @@ class CalculatorsController < ApplicationController
   def calculate
     @calculator = resource
 
-    inputs = JSON.parse(params[:inputs].to_json, symbolize_names: true)
-    formula = @calculator.formulas
-    result = eval(formula.first.expression % inputs)
+    @results = CalculationService.new(@calculator, params[:inputs]).perform
 
-    redirect_to calculator_path(@calculator, result: result)
+    respond_to :turbo_stream
   end
 
   private
 
   def resource
-   Calculator.find(params[:id])
+    Calculator.find(params[:id])
   end
 
   def calculator_params
