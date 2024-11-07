@@ -24,7 +24,9 @@ class Field < ApplicationRecord
   private
 
   def field_is_part_of_any_formula
-    used_in_any_formula  = calculator.formulas.any? { |formula| formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name) }
+    used_in_any_formula  = calculator.formulas.any? do |formula|
+      formula.expression.scan(/\b[a-zA-Z_]\w*\b/).uniq.include?(var_name)
+    end
 
     return if used_in_any_formula
 
